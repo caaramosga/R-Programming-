@@ -10,17 +10,18 @@
 
 
 makeCacheMatrix <- function(x = matrix()) {
-  inverse <- NULL 					## Inicialmente se asigna 'NULL' para invertida
-  set_matrix <- function(y) {			
-    x <<- y 					## Ajustando la matriz 'x'
-    inverse <<- NULL
-  }
-  get_matrix <- function() x 				## Retorna matriz 'x'
-  set_inverse <- function(solve) inverse <<- solve 	## Cache the value of the inverse 
-  get_inverse <- function() inverse 			## Retorna invertida
-  list(set_matrix = set_matrix, get_matrix = get_matrix,
-       set_inverse = set_inverse,
-       get_inverse = get_inverse)
+        inv <- NULL
+        set <- function(y) {
+                x <<- y
+                inv <<- NULL
+        }
+        get <- function() x
+        setInverse <- function(inverse) inv <<- inverse
+        getInverse <- function() inv
+        list(set = set,
+             get = get,
+             setInverse = setInverse,
+             getInverse = getInverse)
 }
 
 ## La siguiente función calcula la inversa de la "matriz" especial creado con la función anterior.
@@ -29,17 +30,19 @@ makeCacheMatrix <- function(x = matrix()) {
 ## De lo contrario, se calcula el inverso de los datos y define el valor de la inversa en la memoria caché a través
 ## La función 'set_inverse'.
 
-cacheSolve <- function(x, ...) {				## retorna una matriz que es la inversa de'x'
-  inverse <- x$get_inverse()				## obteniendo la inversa
-  if(!is.null(inverse)) {					## comprobando la presencia de la inversa
-    message("getting cached data")			## mostrando el mensaje
-    return(inverse)
-  }
-  data <- x$get_matrix()					## obteniendo la matriz
-  inverse <- solve(data, ...)				## usando solución() para calcular la inversa
-  x$set_inverse(inverse)					## para el cache inversa
-  inverse 						## Regresa la inversa
+cacheSolve <- function(x, ...) {
+        ## Return a matrix that is the inverse of 'x'
+        inv <- x$getInverse()
+        if (!is.null(inv)) {
+                message("getting cached data")
+                return(inv)
+        }
+        mat <- x$get()
+        inv <- solve(mat, ...)
+        x$setInverse(inv)
+        inv
 }
 
+##Probando las funciones
 
 
