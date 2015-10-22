@@ -45,22 +45,22 @@ cacheSolve <- function(x, ...) {
 
 ##Probando las funciones
 
-my_matrix <- makeCacheMatrix(matrix(1:4, 2, 2))
+my_matrix <- makeCacheMatrix(matrix(c(1,5,11,13), nrow = 2, ncol = 2))
 
 my_matrix$get()
-      [,1] [,2]
-[1,]    1    3
-[2,]    2    4
+   [,1] [,2]
+[1,]    1   11
+[2,]    5   13
 my_matrix$getInverse()
 NULL
 cacheSolve(my_matrix)
-      [,1] [,2]
-[1,]   -2  1.5
-[2,]    1 -0.5
+        [,1]        [,2]
+[1,] -0.3095238  0.26190476
+[2,]  0.1190476 -0.02380952
 my_matrix$getInverse()
-      [,1] [,2]
-[1,]   -2  1.5
-[2,]    1 -0.5
+        [,1]        [,2]
+[1,] -0.3095238  0.26190476
+[2,]  0.1190476 -0.02380952
 my_matrix$set(matrix(c(2, 2, 1, 4), 2, 2))
 my_matrix$get()
       [,1] [,2]
